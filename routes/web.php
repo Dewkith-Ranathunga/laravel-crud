@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,8 @@ Route::get('/StudentSave', function () {
     return view('Index');
 });
 
+Route::controller(StudentController::class)->group(function () {
+    Route::get('/AddStudent', 'AddStudent');
+    Route::post('/StudentSave', 'save')->name('student.save');
+
+});         

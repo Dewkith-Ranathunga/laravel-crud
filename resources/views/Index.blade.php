@@ -13,8 +13,15 @@
 </head>
 
 <body class="bg-light">
-
+ 
     <div class="container py-5">
+
+        @if(session('success') || session('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') ?? session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -24,7 +31,8 @@
 
                         <h2 class="text-center mb-4">Add Student</h2>
 
-                        <form>
+                        <form action="{{ route('student.save') }}" method="POST">
+                            @csrf
 
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">
@@ -33,6 +41,7 @@
                                 <input type="text"
                                        class="form-control"
                                        id="fullName"
+                                       name="fullName"
                                        placeholder="Enter full name">
                             </div>
 
@@ -43,6 +52,7 @@
                                 <input type="email"
                                        class="form-control"
                                        id="email"
+                                        name="email"
                                        placeholder="Enter email address">
                             </div>
 
@@ -52,6 +62,7 @@
                                 </label>
                                 <input type="date"
                                        class="form-control"
+                                       name="dob"
                                        id="dob">
                             </div>
 
