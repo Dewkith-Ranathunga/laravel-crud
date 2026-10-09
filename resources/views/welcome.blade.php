@@ -35,7 +35,7 @@
                 Manage student records easily using Laravel.
             </p>
 
-            <a href="/StudentSave" class="btn btn-primary px-4">
+            <a href="/AddStudent" class="btn btn-primary px-4">
                 Add Student
             </a>
 

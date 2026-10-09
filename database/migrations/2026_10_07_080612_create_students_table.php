@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('student_name');
             $table->string('student_email');
             $table->string('student_dob'); 
-            $table->timestamps();
+            $table->timestamps();   // Adds created_at and updated_at columns
         });
     }
 
