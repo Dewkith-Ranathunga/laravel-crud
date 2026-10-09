@@ -11,3 +11,6 @@ Route::get('/AddStudent', [StudentController::class, 'AddStudent']);
 
 Route::post('/StudentSave', [StudentController::class, 'save'])
     ->name('student.save');
+
+Route::get('/Students', [StudentController::class, 'index'])
+    ->name('students.index');    

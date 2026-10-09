@@ -35,8 +35,16 @@
                 Manage student records easily using Laravel.
             </p>
 
-            <a href="/AddStudent" class="btn btn-primary px-4">
+            <!-- Add Student -->
+            <a href="{{ url('/AddStudent') }}"
+               class="btn btn-primary px-4">
                 Add Student
+            </a>
+
+            <!-- View Students -->
+            <a href="{{ route('students.index') }}"
+               class="btn btn-outline-primary px-4 ms-2">
+                View Students
             </a>
 
         </div>
