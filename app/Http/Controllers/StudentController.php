@@ -28,4 +28,27 @@ class StudentController extends Controller
     $students = Student::all();
     return view('Students', compact('students'));
 }
+
+public function edit($id)
+{
+    $student = Student::findOrFail($id);
+
+    return view('EditStudent', compact('student'));
+}
+
+public function update(Request $request, $id)
+{
+    $student = Student::findOrFail($id);
+
+    $student->update([
+        'student_name' => $request->fullName,
+        'student_email' => $request->email,
+        'student_dob' => $request->dob,
+    ]);
+
+    return redirect()->route('students.index')
+        ->with('success', 'Student Updated Successfully');
+}
+
+
 }

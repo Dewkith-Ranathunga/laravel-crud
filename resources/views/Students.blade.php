@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,7 @@
     <title>Students - Laravel CRUD</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+        rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('CSS/custom.css') }}">
 </head>
@@ -25,9 +26,9 @@
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
         @endif
 
         <div class="card shadow-sm border-0">
@@ -42,23 +43,30 @@
                                 <th>Full Name</th>
                                 <th>Email</th>
                                 <th>Date of Birth</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @forelse($students as $student)
-                                <tr>
-                                    <td>{{ $student->id }}</td>
-                                    <td>{{ $student->student_name }}</td>
-                                    <td>{{ $student->student_email }}</td>
-                                    <td>{{ $student->student_dob }}</td>
-                                </tr>
+                            <tr>
+                                <td>{{ $student->id }}</td>
+                                <td>{{ $student->student_name }}</td>
+                                <td>{{ $student->student_email }}</td>
+                                <td>{{ $student->student_dob }}</td>
+                                <td>
+                                    <a href="{{ route('students.edit', $student->id) }}"
+                                        class="btn btn-sm btn-warning">
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        No students found.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">
+                                    No students found.
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
 
@@ -75,4 +83,5 @@
     </div>
 
 </body>
+
 </html>

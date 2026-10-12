@@ -14,3 +14,12 @@ Route::post('/StudentSave', [StudentController::class, 'save'])
 
 Route::get('/Students', [StudentController::class, 'index'])
     ->name('students.index');    
+
+
+// Display the edit form for a specific student
+Route::get('/Students/{id}/edit', [StudentController::class, 'edit'])
+    ->name('students.edit');
+
+// Save the updated student data
+Route::put('/Students/{id}', [StudentController::class, 'update'])
+    ->name('students.update');    
