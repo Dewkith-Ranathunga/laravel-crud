@@ -54,12 +54,26 @@
                                 <td>{{ $student->student_name }}</td>
                                 <td>{{ $student->student_email }}</td>
                                 <td>{{ $student->student_dob }}</td>
+
                                 <td>
                                     <a href="{{ route('students.edit', $student->id) }}"
                                         class="btn btn-sm btn-warning">
                                         Edit
                                     </a>
+
+                                    <form action="{{ route('students.destroy', $student->id) }}"
+                                        method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td>
+
                             </tr>
                             @empty
                             <tr>

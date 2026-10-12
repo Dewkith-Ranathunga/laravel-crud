@@ -23,3 +23,7 @@ Route::get('/Students/{id}/edit', [StudentController::class, 'edit'])
 // Save the updated student data
 Route::put('/Students/{id}', [StudentController::class, 'update'])
     ->name('students.update');    
+
+// Delete a specific student    
+ Route::delete('/Students/{id}', [StudentController::class, 'destroy'])
+    ->name('students.destroy');   
