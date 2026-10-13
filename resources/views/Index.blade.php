@@ -1,92 +1,89 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Add Student - Laravel CRUD</title>
+@extends('layouts.app')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+@section('title', 'Add Student - Laravel CRUD')
 
-    <link rel="stylesheet" href="{{ asset('CSS/custom.css') }}">
-</head>
+@section('content')
 
-<body class="bg-light">
- 
-    <div class="container py-5">
+<div class="container py-5">
 
-        @if(session('success') || session('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') ?? session('message') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    @if(session('success') || session('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') ?? session('message') }}
 
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-4">
-
-                        <h2 class="text-center mb-4">Add Student</h2>
-
-                        <form action="{{ route('student.save') }}" method="POST">
-                            @csrf
-
-                            <div class="mb-3">
-                                <label for="fullName" class="form-label">
-                                    Full Name
-                                </label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="fullName"
-                                       name="fullName"
-                                       placeholder="Enter full name">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">
-                                    Email
-                                </label>
-                                <input type="email"
-                                       class="form-control"
-                                       id="email"
-                                        name="email"
-                                       placeholder="Enter email address">
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="dob" class="form-label">
-                                    Date of Birth
-                                </label>
-                                <input type="date"
-                                       class="form-control"
-                                       name="dob"
-                                       id="dob">
-                            </div>
-
-                            <div class="d-flex justify-content-between">
-                                <a href="/" class="btn btn-secondary">
-                                    Back
-                                </a>
-
-                                <button type="submit" class="btn btn-primary px-4">
-                                    Save Student
-                                </button>
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div>
-
-            </div>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
+            </button>
         </div>
+    @endif
 
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <h2 class="text-center mb-4">Add Student</h2>
+
+                    <form action="{{ route('student.save') }}" method="POST">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">
+                                Full Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   id="fullName"
+                                   name="fullName"
+                                   placeholder="Enter full name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                Email
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Enter email address">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="dob" class="form-label">
+                                Date of Birth
+                            </label>
+
+                            <input type="date"
+                                   class="form-control"
+                                   name="dob"
+                                   id="dob">
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/" class="btn btn-secondary">
+                                Back
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Save Student
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 
-</body>
-</html>
+@endsection

@@ -1,54 +1,44 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Students - Laravel CRUD</title>
+@section('title', 'Students - Laravel CRUD')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+@section('content')
 
-    <link rel="stylesheet" href="{{ asset('CSS/custom.css') }}">
-</head>
+<div class="container py-5">
 
-<body class="bg-light">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Student List</h2>
 
-    <div class="container py-5">
+        <a href="{{ url('/AddStudent') }}" class="btn btn-primary">
+            Add Student
+        </a>
+    </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Student List</h2>
-
-            <a href="{{ url('/AddStudent') }}" class="btn btn-primary">
-                Add Student
-            </a>
-        </div>
-
-        @if(session('success'))
+    @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-        @endif
+    @endif
 
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle mb-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle mb-0">
 
-                        <thead class="table-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Date of Birth</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            @forelse($students as $student)
+                    <tbody>
+                        @forelse($students as $student)
                             <tr>
                                 <td>{{ $student->id }}</td>
                                 <td>{{ $student->student_name }}</td>
@@ -57,45 +47,45 @@
 
                                 <td>
                                     <a href="{{ route('students.edit', $student->id) }}"
-                                        class="btn btn-sm btn-warning">
+                                       class="btn btn-sm btn-warning">
                                         Edit
                                     </a>
 
                                     <form action="{{ route('students.destroy', $student->id) }}"
-                                        method="POST"
-                                        class="d-inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                          method="POST"
+                                          class="d-inline"
+                                          onsubmit="return confirm('Are you sure you want to delete this student?');">
+
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-sm btn-danger">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger">
                                             Delete
                                         </button>
                                     </form>
                                 </td>
-
                             </tr>
-                            @empty
+                        @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">
+                                <td colspan="5"
+                                    class="text-center text-muted py-4">
                                     No students found.
                                 </td>
                             </tr>
-                            @endforelse
-                        </tbody>
+                        @endforelse
+                    </tbody>
 
-                    </table>
-                </div>
-
-                <a href="/" class="btn btn-secondary mt-3">
-                    Back to Home
-                </a>
-
+                </table>
             </div>
-        </div>
 
+            <a href="/" class="btn btn-secondary mt-3">
+                Back to Home
+            </a>
+
+        </div>
     </div>
 
-</body>
+</div>
 
-</html>
+@endsection
