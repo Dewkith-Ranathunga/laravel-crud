@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Edit Student - Laravel CRUD')
@@ -15,8 +14,20 @@
 
                     <h2 class="text-center mb-4">Edit Student</h2>
 
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+
                     <form action="{{ route('students.update', $student->id) }}"
-                          method="POST">
+                        method="POST">
 
                         @csrf
                         @method('PUT')
@@ -27,11 +38,11 @@
                             </label>
 
                             <input type="text"
-                                   class="form-control"
-                                   id="fullName"
-                                   name="fullName"
-                                   value="{{ $student->student_name }}"
-                                   required>
+                                class="form-control"
+                                id="fullName"
+                                name="fullName"
+                                value="{{ $student->student_name }}"
+                                required>
                         </div>
 
                         <div class="mb-3">
@@ -40,11 +51,11 @@
                             </label>
 
                             <input type="email"
-                                   class="form-control"
-                                   id="email"
-                                   name="email"
-                                   value="{{ $student->student_email }}"
-                                   required>
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                value="{{ $student->student_email }}"
+                                required>
                         </div>
 
                         <div class="mb-4">
@@ -53,21 +64,21 @@
                             </label>
 
                             <input type="date"
-                                   class="form-control"
-                                   id="dob"
-                                   name="dob"
-                                   value="{{ $student->student_dob }}"
-                                   required>
+                                class="form-control"
+                                id="dob"
+                                name="dob"
+                                value="{{ $student->student_dob }}"
+                                required>
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('students.index') }}"
-                               class="btn btn-secondary">
+                                class="btn btn-secondary">
                                 Back
                             </a>
 
                             <button type="submit"
-                                    class="btn btn-primary px-4">
+                                class="btn btn-primary px-4">
                                 Update Student
                             </button>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -12,23 +13,35 @@ class StudentController extends Controller
         return view('Index');
     }
 
+
     public function save(Request $request)
     {
+        $request->validate([
+            'fullName' => 'required|string|max:255',
+            'email' => 'required|email|unique:students,student_email',
+            'dob' => 'required|date|before_or_equal:today',
+        ]);
+
         Student::create([
             'student_name' => $request->fullName,
             'student_email' => $request->email,
-            'student_dob' => $request->dob
+            'student_dob' => $request->dob,
         ]);
 
         return redirect()->route('students.index')
             ->with('success', 'Student Added Successfully');
     }
 
+
+
     public function index()
     {
-        $students = Student::all();
+        $students = Student::where('status', '!=', Student::STATUS_DELETED)
+            ->get();
+
         return view('Students', compact('students'));
     }
+
 
     public function edit($id)
     {
@@ -37,9 +50,21 @@ class StudentController extends Controller
         return view('EditStudent', compact('student'));
     }
 
+
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('status', '!=', Student::STATUS_DELETED)
+            ->findOrFail($id);
+
+        $request->validate([
+            'fullName' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('students', 'student_email')->ignore($student->id), // Ignore the current student's email when checking for uniqueness
+            ],
+            'dob' => 'required|date|before_or_equal:today',
+        ]);
 
         $student->update([
             'student_name' => $request->fullName,
@@ -51,11 +76,16 @@ class StudentController extends Controller
             ->with('success', 'Student Updated Successfully');
     }
 
+
+
     public function destroy($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::where('status', '!=', Student::STATUS_DELETED) // Only delete students that are not already deleted
+            ->findOrFail($id);
 
-        $student->delete();
+        $student->update([
+            'status' => Student::STATUS_DELETED
+        ]);
 
         return redirect()->route('students.index')
             ->with('success', 'Student Deleted Successfully');
