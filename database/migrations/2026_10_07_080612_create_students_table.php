@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -6,23 +7,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('student_name');
             $table->string('student_email');
-            $table->string('student_dob'); 
-            $table->timestamps();   // Adds created_at and updated_at columns
+            $table->date('student_dob');
+            $table->unsignedTinyInteger('status')->default(1);
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('students');
