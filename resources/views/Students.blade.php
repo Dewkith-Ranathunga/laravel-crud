@@ -16,8 +16,9 @@
     </div>
 
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -33,6 +34,7 @@
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Date of Birth</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -45,12 +47,44 @@
                                 <td>{{ $student->student_email }}</td>
                                 <td>{{ $student->student_dob }}</td>
 
+                                <!-- Student Status -->
                                 <td>
+                                    @if($student->status == 1)
+                                        <span class="badge bg-success">Active</span>
+                                    @elseif($student->status == 2)
+                                        <span class="badge bg-secondary">Deactive</span>
+                                    @endif
+                                </td>
+
+                                <!-- Actions -->
+                                <td>
+                                    <!-- Edit Student -->
                                     <a href="{{ route('students.edit', $student->id) }}"
                                        class="btn btn-sm btn-warning">
                                         Edit
                                     </a>
 
+                                    <!-- Activate / Deactivate Student -->
+                                    <form action="{{ route('students.status', $student->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+
+                                        @csrf
+                                        @method('PATCH')
+
+                                        @if($student->status == 1)
+                                            <button type="submit" class="btn btn-sm btn-secondary">
+                                                Deactivate
+                                            </button>
+                                        @else
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                Activate
+                                            </button>
+                                        @endif
+
+                                    </form>
+
+                                    <!-- Delete Student -->
                                     <form action="{{ route('students.destroy', $student->id) }}"
                                           method="POST"
                                           class="d-inline"
@@ -59,8 +93,7 @@
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit"
-                                                class="btn btn-sm btn-danger">
+                                        <button type="submit" class="btn btn-sm btn-danger">
                                             Delete
                                         </button>
                                     </form>
@@ -68,8 +101,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5"
-                                    class="text-center text-muted py-4">
+                                <td colspan="6" class="text-center text-muted py-4">
                                     No students found.
                                 </td>
                             </tr>

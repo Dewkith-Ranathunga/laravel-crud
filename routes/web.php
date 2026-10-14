@@ -13,7 +13,7 @@ Route::post('/StudentSave', [StudentController::class, 'save'])
     ->name('student.save');
 
 Route::get('/Students', [StudentController::class, 'index'])
-    ->name('students.index');    
+    ->name('students.index');
 
 
 // Display the edit form for a specific student
@@ -22,8 +22,12 @@ Route::get('/Students/{id}/edit', [StudentController::class, 'edit'])
 
 // Save the updated student data
 Route::put('/Students/{id}', [StudentController::class, 'update'])
-    ->name('students.update');    
+    ->name('students.update');
 
 // Delete a specific student    
- Route::delete('/Students/{id}', [StudentController::class, 'destroy'])
-    ->name('students.destroy');   
+Route::delete('/Students/{id}', [StudentController::class, 'destroy'])
+    ->name('students.destroy');
+
+// Change the status of a specific student
+Route::patch('/Students/{id}/status', [StudentController::class, 'changeStatus'])
+    ->name('students.status');

@@ -90,4 +90,23 @@ class StudentController extends Controller
         return redirect()->route('students.index')
             ->with('success', 'Student Deleted Successfully');
     }
+
+
+
+    public function changeStatus($id)
+    {
+        $student = Student::where('status', '!=', Student::STATUS_DELETED)
+            ->findOrFail($id);
+
+        if ($student->status == Student::STATUS_ACTIVE) {
+            $student->status = Student::STATUS_DEACTIVE;
+        } else {
+            $student->status = Student::STATUS_ACTIVE;
+        }
+
+        $student->save();
+
+        return redirect()->route('students.index')
+            ->with('success', 'Student Status Updated Successfully');
+    }
 }
