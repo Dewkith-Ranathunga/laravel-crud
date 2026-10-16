@@ -224,7 +224,7 @@
 
 
 <!-- Edit Student Modals -->
-
+@foreach($students as $student)
 <div class="modal fade" id="editStudentModal{{ $student->id }}"
      tabindex="-1"
      aria-labelledby="editStudentTitle{{ $student->id }}"
@@ -304,7 +304,7 @@
         </div>
     </div>
 </div>
-
+@endforeach
 
 @endsection
 
