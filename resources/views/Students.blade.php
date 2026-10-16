@@ -164,12 +164,147 @@
 </div>
 
 <!-- Add Student Modal -->
-@include('students.add-modal')
+
+<div class="modal fade" id="addStudentModal" tabindex="-1"
+     aria-labelledby="addStudentTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form action="{{ route('student.save') }}" method="POST">
+                @csrf
+                <input type="hidden" name="_form" value="add">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentTitle">Add Student</h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="addFullName" class="form-label">Full Name</label>
+                        <input type="text" name="fullName" id="addFullName"
+                               class="form-control"
+                               value="{{ old('_form') === 'add' ? old('fullName') : '' }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addEmail" class="form-label">Email</label>
+                        <input type="email" name="email" id="addEmail"
+                               class="form-control"
+                               value="{{ old('_form') === 'add' ? old('email') : '' }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addDob" class="form-label">Date of Birth</label>
+                        <input type="date" name="dob" id="addDob"
+                               class="form-control"
+                               value="{{ old('_form') === 'add' ? old('dob') : '' }}"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        Save Student
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <!-- Edit Student Modals -->
-@foreach($students as $student)
-    @include('students.edit-modal', ['student' => $student])
-@endforeach
+
+<div class="modal fade" id="editStudentModal{{ $student->id }}"
+     tabindex="-1"
+     aria-labelledby="editStudentTitle{{ $student->id }}"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form action="{{ route('students.update', $student->id) }}"
+                  method="POST">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="_form" value="edit">
+                <input type="hidden" name="_student_id" value="{{ $student->id }}">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentTitle{{ $student->id }}">
+                        Edit Student
+                    </h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="editName{{ $student->id }}" class="form-label">
+                            Full Name
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               id="editName{{ $student->id }}"
+                               name="fullName"
+                               value="{{ old('_form') === 'edit' && old('_student_id') == $student->id ? old('fullName') : $student->student_name }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editEmail{{ $student->id }}" class="form-label">
+                            Email
+                        </label>
+                        <input type="email"
+                               class="form-control"
+                               id="editEmail{{ $student->id }}"
+                               name="email"
+                               value="{{ old('_form') === 'edit' && old('_student_id') == $student->id ? old('email') : $student->student_email }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editDob{{ $student->id }}" class="form-label">
+                            Date of Birth
+                        </label>
+                        <input type="date"
+                               class="form-control"
+                               id="editDob{{ $student->id }}"
+                               name="dob"
+                               value="{{ old('_form') === 'edit' && old('_student_id') == $student->id ? old('dob') : $student->student_dob }}"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Update Student
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
